@@ -1,122 +1,167 @@
 import Link from "next/link";
+import { AGENTS } from "@/lib/supabaseClient";
 
-const TICKER = [
-  "Replied to a new Google review — 2 min ago",
-  "Captured a lead from your website — 14 min ago",
-  "Published a blog post — 1 hr ago",
-  "Posted an update to Google Business — 3 hrs ago",
-  "Answered 6 visitor questions overnight",
-  "Updated your llms.txt for AI search — today"
+const FEED = [
+  ["💬", "AI Receptionist booked a new lead", "just now"],
+  ["✨", "Now appearing in ChatGPT answers", "12 min ago"],
+  ["📍", "Replied to a 5-star Google review", "1 hr ago"],
+  ["🔎", "Published an SEO article", "3 hrs ago"],
+  ["🎯", "Found 18 new leads to reach", "today"]
+];
+
+const WHY = [
+  ["The way people search has changed", "Your customers no longer only Google you. They ask ChatGPT, Gemini and Perplexity who's the best near them. If those AIs don't know you, you're invisible to your best customers."],
+  ["Agencies are slow and expensive", "A marketing agency charges thousands a month and still makes you wait. Our agents work every day, never sleep, and cost less than one new customer is worth."],
+  ["Doing it yourself is impossible", "SEO, AI search, Google, reviews, leads, content — no owner has time for all of it. Your agents handle the work so you can run your business."]
 ];
 
 const STEPS = [
-  ["Tell us about your business", "Five minutes. Your services, prices, hours, and location. That's all we need from you — ever."],
-  ["We build and launch your website", "A fast, mobile-friendly site with an AI receptionist built in, live on your own domain within days."],
-  ["Customers find you", "We keep your Google profile active, publish content, and capture every interested visitor as a lead."]
+  ["Tell us about your business once", "A few questions about what you do. This is the only work you ever do."],
+  ["Your agents get to work", "They make you findable on Google and AI search, answer your visitors, and bring in leads — automatically."],
+  ["You watch customers come in", "Real leads and real growth show up in your dashboard. You just reply and close them."]
 ];
 
 const FAQ = [
-  ["Do I need to do anything technical?", "No. You answer a few questions about your business once. We handle the website, the chatbot, Google, and the content."],
-  ["Who owns my website and domain?", "The domain is bought in your name — you own your address on the internet. We build and manage the website for you."],
-  ["How fast do results show?", "Your website and AI receptionist work from day one — you'll see real conversations and leads in your dashboard immediately. Google search rankings grow over 60–90 days; we show you honest progress, never fake numbers."],
-  ["Can I cancel?", "Yes, anytime — cancelling stops future payments. Payments already made are not refunded, because the work (your website) is already delivered."]
+  ["What exactly do I get?", "A team of AI agents that market your business every day: an AI receptionist that answers visitors and captures leads, plus agents for Google, AI search, content, and finding new customers. We can also build you a website if you need one."],
+  ["Do I need any tech skill?", "None. You answer a few questions once. The agents do the rest, and everything shows up in one simple dashboard."],
+  ["How fast will I see results?", "Your AI receptionist and lead capture work from day one. Search results on Google and AI engines build over 60-90 days — we show you honest progress, never fake numbers."],
+  ["Can I cancel anytime?", "Yes. Cancelling stops any future payment immediately. We keep you by doing great work, not by trapping you."]
 ];
 
 export default function Home() {
   return (
     <main>
-      {/* Nav */}
-      <nav className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto">
-        <span className="font-display text-xl font-bold text-awning">AgentMarketer</span>
-        <div className="flex items-center gap-4 text-sm">
-          <Link href="/pricing" className="hover:text-awning">Pricing</Link>
-          <Link href="/login" className="hover:text-awning">Log in</Link>
-          <Link href="/signup" className="bg-awning text-white px-4 py-2 rounded-lg font-semibold hover:bg-awningdark">
-            Get started
-          </Link>
-        </div>
-      </nav>
+      <header className="sticky top-0 z-30 backdrop-blur bg-paper/80 border-b border-line">
+        <nav className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto">
+          <span className="font-display text-lg font-bold">Agent<span className="text-brand">Marketer</span></span>
+          <div className="flex items-center gap-5 text-sm">
+            <Link href="/pricing" className="hidden sm:inline text-slate hover:text-ink">Pricing</Link>
+            <Link href="/login" className="text-slate hover:text-ink">Log in</Link>
+            <Link href="/signup" className="bg-ink text-white px-4 py-2 rounded-xl font-semibold hover:bg-brand transition-colors">Start now</Link>
+          </div>
+        </nav>
+      </header>
 
-      {/* Hero */}
-      <section className="bg-mint">
-        <div className="max-w-6xl mx-auto px-6 pt-16 pb-10 text-center">
-          <p className="inline-block bg-white text-awning text-xs font-semibold tracking-wide uppercase px-3 py-1 rounded-full mb-6">
-            For local businesses — dentists, salons, trades, clinics
-          </p>
-          <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight max-w-3xl mx-auto">
-            Your business, found everywhere. <span className="text-awning">You do nothing.</span>
-          </h1>
-          <p className="mt-5 text-lg max-w-2xl mx-auto opacity-80">
-            We build your website, answer your visitors with an AI receptionist, and keep
-            you active on Google and AI search — for less than one customer is worth.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/signup" className="bg-awning text-white px-6 py-3 rounded-lg font-semibold hover:bg-awningdark">
-              Get my website built
-            </Link>
-            <Link href="/pricing" className="bg-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-50">
-              See pricing
-            </Link>
+      <section className="hero-glow">
+        <div className="max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-16 grid md:grid-cols-2 gap-12 items-center">
+          <div className="rise">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold text-brand bg-soft border border-line px-3 py-1 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald dot" /> Your AI marketing team
+            </span>
+            <h1 className="font-display text-4xl md:text-6xl font-bold leading-[1.05] mt-5">
+              Get found <span className="gradient-text">everywhere</span> customers look.
+            </h1>
+            <p className="text-lg text-slate mt-5 max-w-md">
+              AI agents that put your business in front of customers on Google and AI search,
+              answer them 24/7, and bring you new leads — automatically.
+            </p>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <Link href="/signup" className="bg-brand text-white px-6 py-3 rounded-xl font-semibold shadow-lift hover:bg-branddark transition-colors">Start now</Link>
+              <Link href="/pricing" className="bg-white border border-line px-6 py-3 rounded-xl font-semibold hover:border-brand transition-colors">See pricing</Link>
+            </div>
+            <p className="text-xs text-slate mt-4">No tech skills needed · Cancel anytime</p>
+          </div>
+
+          <div className="rise">
+            <div className="bg-white rounded-3xl shadow-card border border-line p-5">
+              <div className="flex items-center justify-between pb-3 border-b border-line">
+                <span className="text-sm font-semibold">Your agents · live</span>
+                <span className="inline-flex items-center gap-1.5 text-xs text-emerald font-semibold">
+                  <span className="w-2 h-2 rounded-full bg-emerald dot" /> working
+                </span>
+              </div>
+              <ul className="mt-3 space-y-1">
+                {FEED.map(([e, t, w], i) => (
+                  <li key={i} className="flex items-center gap-3 py-2 px-2 rounded-xl hover:bg-soft">
+                    <span className="w-9 h-9 grid place-items-center rounded-xl bg-soft text-lg">{e}</span>
+                    <span className="text-sm flex-1">{t}</span>
+                    <span className="text-xs text-slate">{w}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
-        {/* Signature: the live work ticker */}
-        <div className="border-y border-awning/20 bg-ink text-mint overflow-hidden py-3" aria-label="Examples of work our agents do for you">
-          <div className="ticker-track">
-            {[...TICKER, ...TICKER].map((t, i) => (
-              <span key={i} className="text-sm whitespace-nowrap">
-                <span className="text-amber mr-2">●</span>{t}
-              </span>
-            ))}
+        <div className="border-y border-line bg-white/60">
+          <div className="max-w-6xl mx-auto px-6 py-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-slate">
+            <span className="font-semibold text-ink">Be a founding business</span>
+            <span>·</span>
+            <span>Early customers lock in launch pricing for life</span>
+            <span>·</span>
+            <span>Real reviews from real owners appear here soon</span>
           </div>
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        <h2 className="font-display text-3xl font-bold text-center">How it works</h2>
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <p className="text-sm font-semibold text-brand">Why now</p>
+        <h2 className="font-display text-3xl md:text-4xl font-bold mt-2 max-w-2xl">The businesses AI recommends will win the next ten years.</h2>
         <div className="grid md:grid-cols-3 gap-6 mt-10">
-          {STEPS.map(([title, body], i) => (
-            <div key={title} className="bg-mint rounded-2xl p-6">
-              <div className="w-9 h-9 rounded-full bg-awning text-white flex items-center justify-center font-display font-bold">
-                {i + 1}
-              </div>
-              <h3 className="font-display text-xl font-bold mt-4">{title}</h3>
-              <p className="mt-2 opacity-80 text-sm leading-relaxed">{body}</p>
+          {WHY.map(([t, b]) => (
+            <div key={t} className="bg-white rounded-2xl border border-line shadow-card p-6">
+              <h3 className="font-display text-lg font-bold">{t}</h3>
+              <p className="text-slate text-sm mt-2 leading-relaxed">{b}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Pricing preview */}
       <section className="bg-ink text-white">
-        <div className="max-w-6xl mx-auto px-6 py-16 text-center">
-          <h2 className="font-display text-3xl font-bold">Simple pricing. 50% off at launch.</h2>
-          <p className="mt-3 opacity-70">
-            Website build: <s>$100</s> <strong className="text-amber">$50 one-time</strong> · Plans from{" "}
-            <s>$99</s> <strong className="text-amber">$49.50/month</strong> · Pay annually and the website build is free.
-          </p>
-          <Link href="/pricing" className="inline-block mt-6 bg-amber text-ink px-6 py-3 rounded-lg font-semibold hover:opacity-90">
-            See all plans
-          </Link>
+        <div className="max-w-6xl mx-auto px-6 py-20">
+          <p className="text-sm font-semibold text-emerald">Your team</p>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mt-2">Six agents working for you</h2>
+          <p className="text-white/60 mt-3 max-w-xl">Each one does a real job, every day, and reports back to you in plain language.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+            {AGENTS.map((a) => (
+              <div key={a.name} className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors">
+                <div className="w-11 h-11 grid place-items-center rounded-xl text-xl" style={{ background: a.tint + "22" }}>{a.emoji}</div>
+                <h3 className="font-display font-bold mt-4">{a.name}</h3>
+                <p className="text-white/60 text-sm mt-1 leading-relaxed">{a.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-white/50 text-sm mt-8">Need a website too? We build, host and manage one for you as an add-on. It's a bonus, not the point.</p>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="max-w-3xl mx-auto px-6 py-16">
-        <h2 className="font-display text-3xl font-bold text-center">Questions owners ask us</h2>
-        <div className="mt-8 space-y-4">
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-center">How it works</h2>
+        <div className="grid md:grid-cols-3 gap-6 mt-12">
+          {STEPS.map(([t, b], i) => (
+            <div key={t} className="relative bg-soft rounded-2xl p-6">
+              <span className="font-display text-5xl font-bold text-brand/20">{i + 1}</span>
+              <h3 className="font-display text-lg font-bold mt-2">{t}</h3>
+              <p className="text-slate text-sm mt-2 leading-relaxed">{b}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-3xl mx-auto px-6 pb-20">
+        <h2 className="font-display text-3xl font-bold text-center">Questions</h2>
+        <div className="mt-8 space-y-3">
           {FAQ.map(([q, a]) => (
-            <details key={q} className="bg-mint rounded-xl p-5">
-              <summary className="font-semibold cursor-pointer">{q}</summary>
-              <p className="mt-2 text-sm opacity-80 leading-relaxed">{a}</p>
+            <details key={q} className="bg-white border border-line rounded-2xl p-5 group">
+              <summary className="font-semibold cursor-pointer flex justify-between items-center">
+                {q}<span className="text-brand group-open:rotate-45 transition-transform text-xl">+</span>
+              </summary>
+              <p className="text-slate text-sm mt-3 leading-relaxed">{a}</p>
             </details>
           ))}
         </div>
       </section>
 
-      <footer className="border-t py-8 text-center text-sm opacity-60">
-        © {new Date().getFullYear()} AgentMarketer · No refunds — cancel anytime to stop future payments.
+      <section className="max-w-6xl mx-auto px-6 pb-24">
+        <div className="rounded-3xl bg-ink text-white p-10 md:p-14 text-center hero-glow">
+          <h2 className="font-display text-3xl md:text-5xl font-bold">Put your AI team to work today.</h2>
+          <p className="text-white/70 mt-4 max-w-md mx-auto">Founding customers lock in 50% off for life. Setup takes five minutes.</p>
+          <Link href="/signup" className="inline-block mt-8 bg-brand text-white px-8 py-4 rounded-xl font-semibold shadow-lift hover:bg-branddark transition-colors">Start now</Link>
+        </div>
+      </section>
+
+      <footer className="border-t border-line py-8 text-center text-sm text-slate">
+        © 2026 AgentMarketer · Cancel anytime to stop future payments.
       </footer>
     </main>
   );
